@@ -53,9 +53,12 @@ struct ContentView: View {
                                     }
                                     
                                     Spacer()
+                                    
                                     Text(pet.name)
                                         .font(.title.weight(.light))
                                         .padding(.vertical)
+                                    Spacer()
+                                    
                                 } // VStack
                                 .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: .infinity)
                                 .background(.ultraThinMaterial)
@@ -91,16 +94,16 @@ struct ContentView: View {
             .navigationTitle(pets.isEmpty ? "" : "Paws")
             .navigationDestination(for: Pet.self, destination: EditPetView.init)
             .toolbar {
-                
                 ToolbarItem(placement: .topBarLeading) {
                     Button{
                         withAnimation {
                             isEditing.toggle()
+                        }
                         } label: {
                             Image(systemName: "slider.horizontal.3")
                         }
                     }
-                }
+                
                 
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add a New Pet", systemImage: "plus.circle", action: addPet)
