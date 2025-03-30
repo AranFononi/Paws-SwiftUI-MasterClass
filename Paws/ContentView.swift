@@ -6,19 +6,27 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ContentView: View {
+    @Environment(\.modelContext) var modelContext
+    @Query private var pets: [Pet]
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        NavigationStack {
+            ScrollView {
+                EmptyView()
+            } // ScrollView
+            .overlay {
+                if pets.isEmpty {
+                    CustomContentUnavailableView(icon: "cat.circle", title: "No Pets", description: "Add a new pet to get started.")
+                }
+            }
+        } // Navigation Stack
     }
 }
 
-#Preview {
+#Preview("No Data") {
     ContentView()
+        .modelContainer(for: Pet.self, inMemory: true)
 }
